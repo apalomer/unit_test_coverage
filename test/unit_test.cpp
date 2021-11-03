@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../foo.h"
+#include "unit_test_coverage/foo.h"
 
 TEST(Foo, times)
 {

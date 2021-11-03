@@ -5,6 +5,11 @@ project (unit_test_coverage LANGUAGES CXX)
 # Enable ExternalProject CMake module
 include(ExternalProject)
 
+find_package(Eigen3 REQUIRED)
+include_directories(/usr/include/eigen3)
+
+include_directories(include)
+
 # Download and install GoogleTest
 if (WIN32)
   # probabli ichange relwithdebinfo
@@ -79,11 +84,13 @@ endif()
 
 # Add code
 add_subdirectory(src)
+add_subdirectory(test)
 
 # Generate coverage
 add_custom_target(run_tests
   COMMAND ctest
-  COMMAND lcov --capture --directory ${CMAKE_SOURCE_DIR} --output-file gtest_demo.info --test-name gtest_demo --no-external
-  COMMAND genhtml gtest_demo.info --output-directory ${CMAKE_SOURCE_DIR}/coverage_report --title "Code coverage report" --show-details --legend
+  COMMAND lcov --rc lcov_branch_coverage=1 --capture --directory ${CMAKE_SOURCE_DIR} --output-file ${CMAKE_BINARY_DIR}/gtest_demo.info --test-name gtest_demo --no-external
+  COMMAND genhtml --branch-coverage gtest_demo.info --output-directory ${CMAKE_BINARY_DIR}/coverage_report --title "Code coverage report" --show-details --legend
+  COMMAND echo "Coverage report in ${CMAKE_BINARY_DIR}/coverage_report/index.html"
+  DEPENDS unit_test
 )
-add_dependencies(run_tests unit_test)

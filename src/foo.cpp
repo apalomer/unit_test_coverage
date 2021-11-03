@@ -1,4 +1,5 @@
-#include "foo.h"
+#include "unit_test_coverage/foo.h"
+#include <Eigen/Dense>
 
 Foo::Foo(const double& value) : m_value(value){};
 
