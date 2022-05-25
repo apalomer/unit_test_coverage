@@ -5,9 +5,6 @@ project (unit_test_coverage LANGUAGES CXX)
 # Enable ExternalProject CMake module
 include(ExternalProject)
 
-find_package(Eigen3 REQUIRED)
-include_directories(/usr/include/eigen3)
-
 include_directories(include)
 
 # Download and install GoogleTest
